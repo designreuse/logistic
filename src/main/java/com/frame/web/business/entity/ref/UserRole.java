@@ -1,4 +1,4 @@
-package com.frame.web.business.entity;
+package com.frame.web.business.entity.ref;
 
 import com.frame.web.base.login.BaseUserRole;
 

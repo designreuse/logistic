@@ -2,7 +2,7 @@ package com.frame.web.business.service.impl;
 
 import com.frame.core.utils.EncryptUtil;
 import com.frame.web.business.dao.UserDao;
-import com.frame.web.business.entity.User;
+import com.frame.web.business.entity.orgainzation.User;
 import com.frame.web.business.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

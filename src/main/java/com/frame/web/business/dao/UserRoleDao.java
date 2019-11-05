@@ -3,7 +3,7 @@ package com.frame.web.business.dao;
 import com.frame.web.base.baseRepository.BaseRepository;
 import com.frame.web.base.login.BaseUserRole;
 import com.frame.web.base.login.LoginUserRoleDao;
-import com.frame.web.business.entity.UserRole;
+import com.frame.web.business.entity.ref.UserRole;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

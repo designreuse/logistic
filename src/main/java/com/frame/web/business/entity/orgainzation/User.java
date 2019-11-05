@@ -1,4 +1,4 @@
-package com.frame.web.business.entity;
+package com.frame.web.business.entity.orgainzation;
 
 import com.frame.web.base.login.BaseUser;
 
