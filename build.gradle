@@ -1,0 +1,44 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+    id 'war'
+}
+
+group 'org.jordan'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    flatDir { dirs 'libs' }
+    mavenLocal()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.0.RELEASE'
+
+    // autch
+    implementation group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
+    implementation group: 'com.auth0', name: 'java-jwt', version: '3.8.3'
+    implementation group: 'org.apache.shiro', name: 'shiro-ehcache', version: '1.4.0'
+
+    // database
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
+    implementation group: 'com.alibaba', name: 'druid', version: '1.1.20'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.2.0.RELEASE'
+    implementation group: 'org.hibernate', name: 'hibernate-java8', version: '5.4.8.Final'
+
+    // bpmn
+    implementation group: 'org.camunda.bpm.springboot', name: 'camunda-bpm-spring-boot-starter', version: '3.3.5'
+    compileOnly 'com.h2database:h2'
+
+    // tools
+    implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.62'
+
+    // libs
+    implementation 'libs:sqlbuilder'
+}
