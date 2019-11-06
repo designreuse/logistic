@@ -1,9 +1,7 @@
-package com.frame.web.business.controller;
+package com.frame.web.base.attachement;
 
-import com.logistics.core.http.ResponseEntity;
-import com.logistics.core.utils.EncryptUtil;
-import com.logistics.web.entity.system.Attachement;
-import com.logistics.web.service.AttachementService;
+import com.frame.core.http.ResponseEntity;
+import com.frame.core.utils.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +14,7 @@ import java.net.URLEncoder;
 
 @RestController
 @RequestMapping("/common/file")
-public class FileController {
+public class AttachementController {
 
     @Value("${system.filebasepath}")
     public String filebasepath;

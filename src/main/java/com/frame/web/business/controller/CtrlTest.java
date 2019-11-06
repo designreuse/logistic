@@ -1,8 +1,8 @@
 package com.frame.web.business.controller;
 
-import com.logistics.core.sql.RefRule;
-import com.logistics.web.entity.orgainzation.Dept;
-import com.logistics.web.entity.orgainzation.User;
+import com.frame.core.sql.RefRule;
+import com.frame.web.business.entity.orgainzation.Dept;
+import com.frame.web.business.entity.orgainzation.User;
 import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
@@ -47,8 +47,5 @@ public class CtrlTest {
         RefRule<User> rule = new RefRule<>(user, RefRule.Rule.INSERT);
         Dept dept = new Dept();
         RefRule<Dept> ruleDept = new RefRule<>(dept, RefRule.Rule.DELETE);
-        for (RefRule refRule : RefRule.getRules()) {
-            System.out.println(refRule.getEntity());
-        }
     }
 }

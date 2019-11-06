@@ -2,16 +2,16 @@ package com.frame.web.business.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.logistics.core.http.BusinessException;
-import com.logistics.core.http.ResponseEntity;
-import com.logistics.core.sql.PageUtil;
-import com.logistics.core.sql.Record;
-import com.logistics.core.utils.EncryptUtil;
-import com.logistics.web.entity.enumeration.Revision;
-import com.logistics.web.entity.enumeration.Sync;
-import com.logistics.web.entity.orgainzation.Role;
-import com.logistics.web.entity.ref.Ref_user_role;
-import com.logistics.web.service.RoleService;
+import com.frame.core.http.BusinessException;
+import com.frame.core.http.ResponseEntity;
+import com.frame.core.sql.Pager;
+import com.frame.core.sql.Record;
+import com.frame.core.utils.EncryptUtil;
+import com.frame.web.base.Enum.Revision;
+import com.frame.web.base.Enum.Sync;
+import com.frame.web.business.entity.orgainzation.Role;
+import com.frame.web.business.entity.ref.UserRole;
+import com.frame.web.business.service.RoleService;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,7 @@ public class RoleController {
                 logger.error("角色保存失败！code已存在");
                 throw new BusinessException("code已存在");
             }
-            role.setId(Strings.isNotEmpty(json.getString("id"))?json.getString("id"):EncryptUtil.randomUUID());
+            role.setId(Strings.isNotEmpty(json.getString("id"))?json.getString("id"): EncryptUtil.randomUUID());
             role.setCode(json.getString("code"));
             role.setName(json.getString("name"));
             role.setRevision(Revision.ACTIVE.getInt());
@@ -69,7 +69,7 @@ public class RoleController {
                                    @Param("page") String pageJson) {
         try {
             JSONObject json = JSON.parseObject(pageJson);
-            PageUtil page = new PageUtil(json.getInteger("current"), json.getInteger("pageSize"));
+            Pager page = new Pager(json.getInteger("current"), json.getInteger("pageSize"));
             page = roleService.roleList(name, code, page);
             logger.info("角色列表查询成功！");
             return ResponseEntity.ok("角色列表查询成功!").putData(page);
@@ -108,7 +108,7 @@ public class RoleController {
 
     // 授权
     @PostMapping("/authc")
-    public ResponseEntity authc(@RequestBody List<Ref_user_role> refs) {
+    public ResponseEntity authc(@RequestBody List<UserRole> refs) {
         try {
             roleService.authc(refs);
             logger.info("授权成功!");

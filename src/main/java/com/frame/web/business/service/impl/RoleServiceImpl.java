@@ -1,14 +1,14 @@
-package com.frame.web.business.service.serviceImpl;
+package com.frame.web.business.service.impl;
 
-import com.logistics.core.sql.PageUtil;
-import com.logistics.core.sql.Record;
-import com.logistics.core.sql.RefRule;
-import com.logistics.core.utils.EncryptUtil;
-import com.logistics.web.dao.RoleDao;
-import com.logistics.web.dao.ref.RefUserRoleDao;
-import com.logistics.web.entity.orgainzation.Role;
-import com.logistics.web.entity.ref.Ref_user_role;
-import com.logistics.web.service.RoleService;
+import com.frame.core.sql.Pager;
+import com.frame.core.sql.Record;
+import com.frame.core.sql.RefRule;
+import com.frame.core.utils.EncryptUtil;
+import com.frame.web.business.dao.RoleDao;
+import com.frame.web.business.dao.ref.UserRoleDao;
+import com.frame.web.business.entity.orgainzation.Role;
+import com.frame.web.business.entity.ref.UserRole;
+import com.frame.web.business.service.RoleService;
 import org.apache.logging.log4j.util.Strings;
 import org.camunda.bpm.engine.IdentityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleDao roleDao;
     @Autowired
-    private RefUserRoleDao refUserRoleDao;
+    private UserRoleDao refUserRoleDao;
     @Autowired
     private IdentityService identityService;
 
@@ -41,7 +41,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public PageUtil roleList(String name, String code, PageUtil page) {
+    public Pager roleList(String name, String code, Pager page) {
         return roleDao.roleList(name, code, page);
     }
 
@@ -76,14 +76,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Transactional
     @Override
-    public void authc(List<Ref_user_role> refs) {
-        List<RefRule<Ref_user_role>> rus = refs.stream().map(ref -> {
+    public void authc(List<UserRole> refs) {
+        List<RefRule<UserRole>> rus = refs.stream().map(ref -> {
             ref.setId(Strings.isNotEmpty(ref.getId()) ? ref.getId() : EncryptUtil.randomUUID());
             return new RefRule<>(ref, RefRule.Rule.valueOf(ref.getRule().toUpperCase()));
         }).collect(Collectors.toList());
         refUserRoleDao.refRuleOperation(rus);
         rus.forEach(ru -> {
-            Ref_user_role ref = ru.getEntity();
+            UserRole ref = ru.getEntity();
             switch (ru.getRule()) {
                 case INSERT:
                     identityService.createMembership(ref.getAccount(), ref.getRole());

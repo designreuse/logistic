@@ -1,7 +1,7 @@
 package com.frame.web.business.service;
 
-import com.logistics.core.sql.PageUtil;
-import com.logistics.web.entity.orgainzation.User;
+import com.frame.core.sql.Pager;
+import com.frame.web.business.entity.orgainzation.User;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface UserService {
@@ -22,9 +22,9 @@ public interface UserService {
 
     void deleteUser(String userId);
 
-    PageUtil getUserList(String name, String mobile, String deptId, Integer revision, PageUtil page);
+    Pager getUserList(String name, String mobile, String deptId, Integer revision, Pager page);
 
-    PageUtil getPendList(String applier, PageUtil page);
+    Pager getPendList(String applier, Pager page);
 
     User getUserById(String userId);
 }

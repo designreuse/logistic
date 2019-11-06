@@ -8,4 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="t_role")
 public class Role extends BaseRole {
+
+    public interface InfoView {
+    }
 }

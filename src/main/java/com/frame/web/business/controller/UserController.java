@@ -1,14 +1,14 @@
 package com.frame.web.business.controller;
 
-import com.logistics.core.http.BusinessException;
-import com.logistics.core.http.ResponseEntity;
-import com.logistics.core.shiro.JWTUtil;
-import com.logistics.core.shiro.ShiroUtil;
-import com.logistics.core.sql.PageUtil;
-import com.logistics.web.entity.enumeration.Revision;
-import com.logistics.web.entity.orgainzation.User;
-import com.logistics.web.entity.pending.BasePend;
-import com.logistics.web.service.UserService;
+import com.frame.core.http.BusinessException;
+import com.frame.core.http.ResponseEntity;
+import com.frame.core.shiro.JWTUtil;
+import com.frame.core.shiro.ShiroUtil;
+import com.frame.core.sql.Pager;
+import com.frame.web.base.Enum.Revision;
+import com.frame.web.business.entity.orgainzation.User;
+import com.frame.web.business.entity.pending.BasePend;
+import com.frame.web.business.service.UserService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.slf4j.Logger;
@@ -38,10 +38,10 @@ public class UserController {
     @PostMapping("/listForAdmin")
     public ResponseEntity listForAdmin(@RequestBody User.SearchDto dto) {
         try {
-            PageUtil pageUtil = new PageUtil(dto.getPageIndex(), dto.getPageSize());
-            pageUtil = userService.getUserList(dto.getName(), dto.getName(), dto.getDeptId(), Revision.ACTIVE.getInt(), pageUtil);
+            Pager Pager = new Pager(dto.getPageIndex(), dto.getPageSize());
+            Pager = userService.getUserList(dto.getName(), dto.getName(), dto.getDeptId(), Revision.ACTIVE.getInt(), Pager);
             logger.info("用户列表查询成功！");
-            return ResponseEntity.ok().putData(pageUtil);
+            return ResponseEntity.ok().putData(Pager);
         } catch (Exception e) {
             logger.info("用户列表查询失败！", e);
             throw new BusinessException("用户列表查询失败！", e);
@@ -58,10 +58,10 @@ public class UserController {
     @PostMapping("/listForPendApprove")
     public ResponseEntity listForPendApprove(@RequestBody User.SearchDto dto) {
         try {
-            PageUtil pageUtil = new PageUtil(dto.getPageIndex(), dto.getPageSize());
-            pageUtil = userService.getUserList(dto.getName(), dto.getName(), dto.getDeptId(), Revision.PENDING.getInt(), pageUtil);
+            Pager Pager = new Pager(dto.getPageIndex(), dto.getPageSize());
+            Pager = userService.getUserList(dto.getName(), dto.getName(), dto.getDeptId(), Revision.PENDING.getInt(), Pager);
             logger.info("用户列表查询成功！");
-            return ResponseEntity.ok().putData(pageUtil);
+            return ResponseEntity.ok().putData(Pager);
         } catch (Exception e) {
             logger.info("用户列表查询失败！", e);
             throw new BusinessException("用户列表查询失败！", e);
@@ -78,11 +78,11 @@ public class UserController {
     @PostMapping("/listForCo")
     public ResponseEntity getUserList(@RequestBody User.SearchDto dto) {
         try {
-            PageUtil pageUtil = new PageUtil(dto.getPageIndex(), dto.getPageSize());
-            String deptId = ShiroUtil.getCurrentUser().getDeptId();
-            pageUtil = userService.getUserList(dto.getName(), dto.getMobile(), deptId, Revision.ACTIVE.getInt(), pageUtil);
+            Pager Pager = new Pager(dto.getPageIndex(), dto.getPageSize());
+            String deptId = ((User)ShiroUtil.getCurrentUser()).getDeptId();
+            Pager = userService.getUserList(dto.getName(), dto.getMobile(), deptId, Revision.ACTIVE.getInt(), Pager);
             logger.info("用户列表查询成功！");
-            return ResponseEntity.ok().putData(pageUtil);
+            return ResponseEntity.ok().putData(Pager);
         } catch (Exception e) {
             logger.info("用户列表查询失败！", e);
             throw new BusinessException("用户列表查询失败！", e);
@@ -99,11 +99,11 @@ public class UserController {
     @PostMapping("/listForPendApply")
     public ResponseEntity listForPendApply(@RequestBody User.SearchDto dto) {
         try {
-            PageUtil pageUtil = new PageUtil(dto.getPageIndex(), dto.getPageSize());
+            Pager Pager = new Pager(dto.getPageIndex(), dto.getPageSize());
             String account = ShiroUtil.getCurrentUser().getAccount();
-            pageUtil = userService.getPendList(account, pageUtil);
+            Pager = userService.getPendList(account, Pager);
             logger.info("用户申请列表查询成功！");
-            return ResponseEntity.ok("用户申请列表查询成功！").putData(pageUtil);
+            return ResponseEntity.ok("用户申请列表查询成功！").putData(Pager);
         } catch (Exception e) {
             logger.info("用户申请列表查询失败！", e);
             throw new BusinessException("用户申请列表查询失败！", e);

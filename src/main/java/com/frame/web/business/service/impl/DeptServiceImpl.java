@@ -1,16 +1,16 @@
-package com.frame.web.business.service.serviceImpl;
+package com.frame.web.business.service.impl;
 
-import com.logistics.core.shiro.ShiroUtil;
-import com.logistics.core.sql.PageUtil;
-import com.logistics.core.utils.EncryptUtil;
-import com.logistics.web.dao.DeptDao;
-import com.logistics.web.dao.UserDao;
-import com.logistics.web.dao.pending.DeptPendingDao;
-import com.logistics.web.entity.enumeration.Revision;
-import com.logistics.web.entity.orgainzation.Dept;
-import com.logistics.web.entity.pending.BasePend;
-import com.logistics.web.entity.pending.DeptPend;
-import com.logistics.web.service.DeptService;
+import com.frame.core.shiro.ShiroUtil;
+import com.frame.core.sql.Pager;
+import com.frame.core.utils.EncryptUtil;
+import com.frame.web.base.Enum.Revision;
+import com.frame.web.business.dao.DeptDao;
+import com.frame.web.business.dao.UserDao;
+import com.frame.web.business.dao.pending.DeptPendingDao;
+import com.frame.web.business.entity.orgainzation.Dept;
+import com.frame.web.business.entity.pending.BasePend;
+import com.frame.web.business.entity.pending.DeptPend;
+import com.frame.web.business.service.DeptService;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +63,7 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public PageUtil getDeptList(String deptName,Revision revision, PageUtil page) {
+    public Pager getDeptList(String deptName, Revision revision, Pager page) {
         Map<String, Object> params = new HashMap<>();
         params.put("revision", revision.getInt());
         if (Strings.isNotEmpty(deptName)) {
@@ -73,7 +73,7 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public PageUtil getPendList(String applier, PageUtil page){
+    public Pager getPendList(String applier, Pager page){
         return deptPendingDao.pendList(applier,page);
     }
 

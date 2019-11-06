@@ -2,9 +2,7 @@ package com.frame.web.business.service;
 
 import com.frame.core.sql.Pager;
 import com.frame.web.base.Enum.Revision;
-import com.logistics.core.sql.PageUtil;
-import com.logistics.web.entity.enumeration.Revision;
-import com.logistics.web.entity.orgainzation.Dept;
+import com.frame.web.business.entity.orgainzation.Dept;
 
 public interface DeptService {
 

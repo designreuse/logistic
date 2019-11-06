@@ -1,13 +1,10 @@
-package com.frame.web.business.entity.system;
-
-import org.hibernate.annotations.DynamicInsert;
+package com.frame.web.base.attachement;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@DynamicInsert
 @Entity
 @Table(name="t_attachement")
 public class Attachement implements Serializable{
